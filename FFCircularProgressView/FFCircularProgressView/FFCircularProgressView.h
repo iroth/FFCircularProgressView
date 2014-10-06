@@ -23,6 +23,11 @@
 @property (nonatomic, assign) CGFloat lineWidth;
 
 /**
+ * Inset amount.
+ **/
+@property (nonatomic, assign) CGFloat insetAmount;
+
+/**
  * The color of the progress view
  */
 @property (nonatomic, strong) UIColor *tintColor;
