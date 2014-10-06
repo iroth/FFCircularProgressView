@@ -58,6 +58,7 @@
     _lineWidth = fmaxf(self.frame.size.width * 0.025, 1.f);
     _tintColor = [UIColor ios7Blue];
     _tickColor = [UIColor whiteColor];
+    _insetAmount = 0.0;
     
     self.progressBackgroundLayer = [CAShapeLayer layer];
     _progressBackgroundLayer.strokeColor = _tintColor.CGColor;
@@ -103,7 +104,7 @@
     _iconLayer.frame = self.bounds;
 
     CGPoint center = CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2);
-    CGFloat radius = (self.bounds.size.width - _lineWidth)/2;
+    CGFloat radius = (self.bounds.size.width - _lineWidth)/2 - _insetAmount;
 
     // Draw background
     [self drawBackgroundCircle:_isSpinning];
@@ -116,7 +117,7 @@
     processPath.lineCapStyle = kCGLineCapButt;
     processPath.lineWidth = _lineWidth;
 
-    radius = (self.bounds.size.width - _lineWidth*3) / 2.0;
+    radius = (self.bounds.size.width - _lineWidth*3) / 2.0 - _insetAmount;
     [processPath addArcWithCenter:center radius:radius startAngle:startAngle endAngle:endAngle clockwise:YES];
     
     [_progressLayer setPath:processPath.CGPath];
@@ -160,7 +161,7 @@
     CGFloat startAngle = - ((float)M_PI / 2); // 90 degrees
     CGFloat endAngle = (2 * (float)M_PI) + startAngle;
     CGPoint center = CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2);
-    CGFloat radius = (self.bounds.size.width - _lineWidth)/2;
+    CGFloat radius = (self.bounds.size.width - _lineWidth)/2 - _insetAmount;
     
     // Draw background
     UIBezierPath *processBackgroundPath = [UIBezierPath bezierPath];
@@ -178,7 +179,7 @@
 }
 
 - (void) drawTick {
-    CGFloat radius = MIN(self.frame.size.width, self.frame.size.height)/2;
+    CGFloat radius = MIN(self.frame.size.width, self.frame.size.height)/2 - _insetAmount;
     
     /*
      First draw a tick that looks like this:
@@ -213,7 +214,7 @@
 }
 
 - (void) drawStop {
-    CGFloat radius = (self.bounds.size.width)/2;
+    CGFloat radius = (self.bounds.size.width)/2 - _insetAmount;
     CGFloat ratio = kStopSizeRatio;
     CGFloat sideSize = self.bounds.size.width * ratio;
     
@@ -233,7 +234,7 @@
 }
 
 - (void) drawArrow {
-    CGFloat radius = (self.bounds.size.width)/2;
+    CGFloat radius = (self.bounds.size.width)/2 - _insetAmount;
     CGFloat ratio = kArrowSizeRatio;
     CGFloat segmentSize = self.bounds.size.width * ratio;
 
